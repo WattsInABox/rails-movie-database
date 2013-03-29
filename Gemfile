@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'ruby-imdb'
+gem 'ruby-imdb', github: 'yalcin/ruby-imdb'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,6 +21,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :test do
+  gem 'shoulda'
+  gem 'mocha', :require => 'mocha/setup'
+  gem 'factory_girl'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
