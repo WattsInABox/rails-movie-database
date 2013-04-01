@@ -1,8 +1,8 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class MoviesControllerTest < ActionController::TestCase
   setup do
-    @movie = movies(:one)
+    @movie = FactoryGirl.create(:movie)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class MoviesControllerTest < ActionController::TestCase
 
   test "should create movie" do
     assert_difference('Movie.count') do
-      post :create, movie: {  }
+      post :create, movie: FactoryGirl.attributes_for(:movie)
     end
 
     assert_redirected_to movie_path(assigns(:movie))
