@@ -10,6 +10,16 @@ class MoviesController < ApplicationController
     end
   end
 
+  # search for movies in IMDB's database, not ours
+  def search
+    @movies = Movie.search(params[:query])
+    puts @movies.collect { |m| m.inspect }
+
+    respond_to do |format|  
+      format.json { render json: @movies }
+    end
+  end
+
   # GET /movies/1
   # GET /movies/1.json
   def show

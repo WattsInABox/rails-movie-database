@@ -1,6 +1,11 @@
 MovieDatabase::Application.routes.draw do
-  resources :movies
   resources :lists
+
+  resources :movies do
+    collection do
+      get 'search'
+    end
+  end
 
 
   # The priority is based upon order of creation:
@@ -49,6 +54,8 @@ MovieDatabase::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
