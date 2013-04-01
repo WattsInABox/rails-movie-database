@@ -1,5 +1,6 @@
 MovieDatabase::Application.routes.draw do
   resources :movies
+  resources :lists
 
 
   # The priority is based upon order of creation:
