@@ -46,4 +46,11 @@ class MoviesControllerTest < ActionController::TestCase
 
     assert_redirected_to movies_path
   end
+
+  should "search" do
+    get :search, format: 'json', query: 'Top Gear'
+
+    assert_not_nil assigns(:movies)
+    assert_response :success
+  end
 end
