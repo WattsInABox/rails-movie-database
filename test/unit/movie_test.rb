@@ -1,17 +1,16 @@
 require_relative '../test_helper'
 
+# TODO this test should not depend on the internets
 class MovieTest < ActiveSupport::TestCase
   context "search" do
     should "pull up to 10 movies from the movie database" do
-      assert_nothing_raised do
-        Movie.search("some movie")
-      end
+      movies = Movie.search("top gear")
 
-      assert false
+      assert_equal 10, movies.length
+      assert_instance_of IMDB::Movie, movies.first
     end
   end
 
-  # TODO this test should not depend on the internets
   context "save_from_imdb" do
     should "save movie" do
       Movie.save_from_imdb(1)

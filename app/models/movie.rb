@@ -6,10 +6,13 @@ class Movie < ActiveRecord::Base
 
   has_many :movie_genres
   has_many :genres, through: :movie_genres
+  
+  validates_uniqueness_of :imdb_id
+
   def self.search(param)
     ::IMDB::Search.new.movie(param).collect do |result|
       ::IMDB::Movie.new(result.imdb_id)
-    end
+    end.first(10)
   end
 
   def self.save_from_imdb(imdb_id)
