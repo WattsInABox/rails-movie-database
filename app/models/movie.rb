@@ -32,3 +32,21 @@ class Movie < ActiveRecord::Base
     end
   end
 end
+
+
+# IMDB overrides
+# TODO request a pull
+module IMDB
+  class Movie < IMDB::Skeleton
+    # Get movie poster address
+    # @return [String]
+    def poster
+      doc.at("#img_primary img").try(:[], "src")
+    end
+
+    # @return [String]
+    def short_description
+      doc.at("#overview-top p[itemprop=description]").try(:text).try(:strip)
+    end
+  end
+end
