@@ -6,7 +6,8 @@ FactoryGirl.define do
   end
 
   factory :movie do
-    title "My Movie: The Revenge of My Movie"
+    title "My Movie"
+    short_description "Short Description"
     imdb_id { generate(:imdb_id) }
   end
 

@@ -48,9 +48,18 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   should "search" do
-    get :search, format: 'json', query: 'Top Gear'
+    movie = FactoryGirl.create(:movie)
+    Movie.expects(:search).with('Top Gear').returns([movie])
+    get :search, format: 'json', term: 'Top Gear'
 
-    assert_not_nil assigns(:movies)
+    movies = assigns(:movies)
+    assert_not_nil movies
     assert_response :success
+
+    # use the value-label format for jquery autocomplete
+    # from the docs:
+    # An array of objects with label and value properties: [ { label: "Choice1", value: "value1" }, ... ]
+    assert_equal "#{movie.title}: #{movie.short_description}", movies.first[:label], "Label should be the movie's title and short description"
+    assert_equal movie.imdb_id, movies.first[:value], "Value should be the movie's IMDB ID"
   end
 end

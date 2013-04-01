@@ -11,7 +11,24 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :imdbd_id, "IMDB ID (Autocomplete)" %><br />
+    <%= f.text_field :imdb_id %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add Movie to Library" %>
   </div>
 <% end %>
+
+<%= javascript_tag do -%>
+  $('#movie_imdb_id').autocomplete({
+    source: '<%= search_movies_path(format: 'json') %>',
+    minLength: 4,
+    delay: 500,
+    select: function( event, ui ) {
+      console.debug( ui.item ?
+        "Selected: " + ui.item.value :
+        "Nothing selected, input was " + this.value );
+    }
+  })
+<% end -%>

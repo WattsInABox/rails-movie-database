@@ -12,8 +12,9 @@ class MoviesController < ApplicationController
 
   # search for movies in IMDB's database, not ours
   def search
-    @movies = Movie.search(params[:query])
-    puts @movies.collect { |m| m.inspect }
+    @movies = Movie.search(params[:term]).collect do |movie|
+      { label: "#{movie.title}: #{movie.short_description}", value: movie.imdb_id }  if movie.title.present?
+    end.compact
 
     respond_to do |format|  
       format.json { render json: @movies }
