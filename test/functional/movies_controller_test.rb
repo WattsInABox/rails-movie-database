@@ -21,7 +21,7 @@ class MoviesControllerTest < ActionController::TestCase
       post :create, movie: FactoryGirl.attributes_for(:movie)
     end
 
-    assert_redirected_to movie_path(assigns(:movie))
+    assert_redirected_to lists_path
   end
 
   should "show movie" do
