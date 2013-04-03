@@ -2,11 +2,15 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all
+    @lists = if params[:term].present?
+      List.where("UPPER(name) like '%' || UPPER(?) || '%'", params[:term])
+    else
+      List.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @lists }
+      format.json { render json: @lists.collect { |l| { value: l.id, label: l.name } } }
     end
   end
 

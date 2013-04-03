@@ -1,14 +1,27 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class ListsControllerTest < ActionController::TestCase
   setup do
-    @list = FactoryGirl.create(:list)
+    @list = FactoryGirl.create(:list, name: 'mine')
   end
 
   should "get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:lists)
+  end
+
+  should "get index in JSON format and return lists matching a query parameter" do
+    @list2 = FactoryGirl.create(:list, name: 'yours')
+
+    get :index, format: 'json', term: 'mI' # use capital "I" to test if we're properly doing a case-insensitive search
+
+    lists = assigns(:lists)
+    assert_not_nil lists
+    assert_response :success
+
+    json_response = JSON(response.body)
+    assert_equal [{"value" => @list.id, "label" => @list.name}], json_response
   end
 
   should "get new" do
