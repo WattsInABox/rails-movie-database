@@ -17,9 +17,15 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   should "create movie" do
+    list = FactoryGirl.create(:list)
+    list2 = FactoryGirl.create(:list)
+
     assert_difference('Movie.count') do
-      post :create, movie: FactoryGirl.attributes_for(:movie)
+      movie = FactoryGirl.attributes_for(:movie, lists_attributes: [{id: list.id}, {id: list2.id}])
+      post :create, movie: movie
     end
+
+    assert_same_elements [list, list2], Movie.first.lists
 
     assert_redirected_to lists_path
   end

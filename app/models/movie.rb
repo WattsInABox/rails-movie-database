@@ -36,6 +36,11 @@ class Movie < ActiveRecord::Base
 
     our_movie
   end
+
+  def assign_to_lists(*list_ids)
+    self.lists = list_ids.collect { |list_id| List.find(list_id) }
+    self.save
+  end
 end
 
 

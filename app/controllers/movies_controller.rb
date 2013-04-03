@@ -51,10 +51,11 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.initialize_from_imdb(params[:movie][:imdb_id])
+    @movie = Movie.initialize_from_imdb(current_object_params[:imdb_id])
+    # @movie.lists = current_object_params[:lists].split(',').collect { |list_id| List.find(list_id.strip) }
 
     respond_to do |format|
-      if @movie.save
+      if @movie.save && @movie.assign_to_lists(current_object_params[:lists])
         format.html { redirect_to lists_path, notice: 'Movie was successfully created.' }
         format.json { render json: @movie, status: :created, location: @movie }
       else
@@ -70,7 +71,7 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
 
     respond_to do |format|
-      if @movie.update_attributes(params[:movie])
+      if @movie.update_attributes(current_object_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { head :no_content }
       else
@@ -90,5 +91,11 @@ class MoviesController < ApplicationController
       format.html { redirect_to movies_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+
+  def current_object_name
+    :movie
   end
 end
