@@ -51,7 +51,7 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.new(params[:movie])
+    @movie = Movie.initialize_from_imdb(params[:movie][:imdb_id])
 
     respond_to do |format|
       if @movie.save

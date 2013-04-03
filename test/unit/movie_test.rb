@@ -11,14 +11,17 @@ class MovieTest < ActiveSupport::TestCase
     end
   end
 
-  context "save_from_imdb" do
-    should "save movie" do
-      Movie.save_from_imdb(1)
+  context "initialize_from_imdb" do
+    should "save movie and genres" do
+      movie = Movie.initialize_from_imdb(1)
+      
+      assert_equal true, movie.save
       assert_equal 1, Movie.count
 
-      assert_equal 1, Movie.first.imdb_id
-      assert_equal 'Carmencita', Movie.first.title
-      assert_equal 'http://www.imdb.com/title/tt1', Movie.first.link
+      assert_equal 1, movie.reload.imdb_id
+      assert_equal 'Carmencita', movie.title
+      assert_equal 'http://www.imdb.com/title/tt1', movie.link
+      assert_same_elements %w(Documentary Short), movie.genres.collect { |g| g.name }
     end
   end
   

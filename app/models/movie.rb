@@ -18,9 +18,9 @@ class Movie < ActiveRecord::Base
     end.first(10)
   end
 
-  def self.save_from_imdb(imdb_id)
+  def self.initialize_from_imdb(imdb_id)
     their_movie = ::IMDB::Movie.new(imdb_id)
-    our_movie = create(
+    our_movie = new(
       imdb_id: imdb_id,
       title: their_movie.title,
       link: their_movie.link,
@@ -31,8 +31,10 @@ class Movie < ActiveRecord::Base
     )
 
     their_movie.genres.collect do |g| 
-      our_movie.genres.create(name: g)
+      our_movie.genres.new(name: g.strip)
     end
+
+    our_movie
   end
 end
 
