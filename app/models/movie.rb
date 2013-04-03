@@ -6,6 +6,9 @@ class Movie < ActiveRecord::Base
 
   has_many :movie_genres
   has_many :genres, through: :movie_genres
+
+  has_many :movie_lists
+  has_many :lists, through: :movie_lists
   
   validates_uniqueness_of :imdb_id
 

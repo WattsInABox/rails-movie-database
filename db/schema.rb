@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401023825) do
+ActiveRecord::Schema.define(:version => 20130403053234) do
 
   create_table "genres", :force => true do |t|
     t.integer  "movie_id"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(:version => 20130401023825) do
   create_table "movie_genres", :force => true do |t|
     t.integer "movie_id"
     t.integer "genre_id"
+  end
+
+  create_table "movie_lists", :force => true do |t|
+    t.integer "movie_id"
+    t.integer "list_id"
   end
 
   create_table "movies", :force => true do |t|
