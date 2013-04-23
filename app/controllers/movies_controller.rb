@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  # search for movies in IMDB's database, not ours
+  # search for movies from IMDB, not our database
   def search
     @movies = Movie.search(params[:term]).collect do |movie|
       { label: "#{movie.title}: #{movie.short_description}", value: movie.imdb_id }  if movie.title.present?
