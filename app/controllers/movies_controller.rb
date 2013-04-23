@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   # search for movies from IMDB, not our database
   def search
     @movies = Movie.search(params[:term]).collect do |movie|
-      { label: "#{movie.title}: #{movie.short_description}", value: movie.imdb_id }  if movie.title.present?
+      { label: "#{movie.title}: #{movie.tagline}", value: movie.id }
     end.compact
 
     respond_to do |format|  
@@ -52,10 +52,10 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.initialize_from_imdb(current_object_params[:imdb_id])
-    # @movie.lists = current_object_params[:lists].split(',').collect { |list_id| List.find(list_id.strip) }
+    @movie.lists = current_object_params[:lists].split(',').collect { |list_id| List.find(list_id.strip) }
 
     respond_to do |format|
-      if @movie.save && @movie.assign_to_lists(current_object_params[:lists])
+      if @movie.save
         format.html { redirect_to lists_path, notice: 'Movie was successfully created.' }
         format.json { render json: @movie, status: :created, location: @movie }
       else

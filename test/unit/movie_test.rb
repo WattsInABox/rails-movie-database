@@ -24,17 +24,5 @@ class MovieTest < ActiveSupport::TestCase
       assert_same_elements %w(Documentary Short), movie.genres.collect { |g| g.name }
     end
   end
-
-  context "assigning a movie to lists" do
-    should "allow multiple lists and save the relationship" do
-      list = FactoryGirl.create(:list)
-      list2 = FactoryGirl.create(:list)
-
-      movie = FactoryGirl.create(:movie)
-      movie.assign_to_lists(list.id, list2.id)
-
-      assert_equal [list, list2], movie.lists
-    end
-  end
   
 end
