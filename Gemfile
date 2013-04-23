@@ -9,6 +9,8 @@ gem 'bson_ext'
 gem 'pg'
 gem 'imdb'
 
+gem 'awesome_print'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
