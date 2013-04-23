@@ -7,11 +7,11 @@ class MovieTest < ActiveSupport::TestCase
       movies = Movie.search("top gear")
 
       assert_equal 10, movies.length
-      assert_instance_of IMDB::Movie, movies.first
+      assert_instance_of Imdb::Movie, movies.first
     end
   end
 
-  context "initializing from IMDB" do
+  context "initializing from Imdb" do
     should "init movie with genres and lists" do
       movie = Movie.initialize_from_imdb(1)
       
@@ -20,7 +20,7 @@ class MovieTest < ActiveSupport::TestCase
 
       assert_equal 1, movie.reload.imdb_id
       assert_equal 'Carmencita', movie.title
-      assert_equal 'http://www.imdb.com/title/tt1', movie.link
+      assert_equal 'http://akas.imdb.com/title/tt1/combined', movie.link
       assert_same_elements %w(Documentary Short), movie.genres.collect { |g| g.name }
     end
   end

@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :imdbd_id, "IMDB ID (Autocomplete)" %><br />
+    <%= f.label :imdbd_id, "Imdb ID (Autocomplete)" %><br />
     <%= f.text_field :imdb_id %>
   </div>
   <div class="field">
@@ -33,8 +33,8 @@ $(function() {
   function extractLast( term ) {
     return split( term ).pop();
   }
-  <%# autocomplete the IMDB ID by searching the 
-      IMDB database for the keywords typed in the IMDB ID text box %>
+  <%# autocomplete the Imdb ID by searching the 
+      Imdb database for the keywords typed in the Imdb ID text box %>
   $('#movie_imdb_id').autocomplete({
     source: '<%= search_movies_path(format: 'json') %>',
     minLength: 4,

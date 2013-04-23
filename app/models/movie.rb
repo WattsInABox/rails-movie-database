@@ -13,21 +13,19 @@ class Movie < ActiveRecord::Base
   validates_uniqueness_of :imdb_id
 
   def self.search(param)
-    ::IMDB::Search.new.movie(param).collect do |result|
-      ::IMDB::Movie.new(result.imdb_id)
-    end.first(10)
+    ::Imdb::Search.new(param).movies.first(10)
   end
 
   def self.initialize_from_imdb(imdb_id)
-    their_movie = ::IMDB::Movie.new(imdb_id)
+    their_movie = ::Imdb::Movie.new(imdb_id)
     our_movie = new(
       imdb_id: imdb_id,
       title: their_movie.title,
-      link: their_movie.link,
+      link: their_movie.url,
       poster_link: their_movie.poster,
       release_date: their_movie.release_date,
       director: their_movie.director,
-      short_description: their_movie.short_description
+      short_description: their_movie.tagline
     )
 
     their_movie.genres.collect do |g| 
@@ -40,23 +38,5 @@ class Movie < ActiveRecord::Base
   def assign_to_lists(*list_ids)
     self.lists = list_ids.collect { |list_id| List.find(list_id) }
     self.save
-  end
-end
-
-
-# IMDB overrides
-# TODO request a pull
-module IMDB
-  class Movie < IMDB::Skeleton
-    # Get movie poster address
-    # @return [String]
-    def poster
-      doc.at("#img_primary img").try(:[], "src")
-    end
-
-    # @return [String]
-    def short_description
-      doc.at("#overview-top p[itemprop=description]").try(:text).try(:strip)
-    end
   end
 end
