@@ -26,7 +26,7 @@ class MoviesControllerTest < ActionController::TestCase
         delete :destroy, id: @movie
       end
 
-      assert_redirected_to movies_path
+      assert_redirected_to @movie.lists.first
     end
   end
 

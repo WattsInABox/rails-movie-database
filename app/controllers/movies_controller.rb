@@ -88,7 +88,7 @@ class MoviesController < ApplicationController
     @movie.destroy
 
     respond_to do |format|
-      format.html { redirect_to movies_url }
+      format.html { redirect_to @movie.lists.first }
       format.json { head :no_content }
     end
   end
