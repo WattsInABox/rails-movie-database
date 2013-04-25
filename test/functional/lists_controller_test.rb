@@ -37,9 +37,10 @@ class ListsControllerTest < ActionController::TestCase
     assert_redirected_to list_path(assigns(:list))
   end
 
-  should "show list" do
+  should "show list with sorted movies" do
     get :show, id: @list
     assert_response :success
+    assert_equal @list.movies.sort { |a, b| a.title <=> b.title }, assigns(:movies)
   end
 
   should "get edit" do

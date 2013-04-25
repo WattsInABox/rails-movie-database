@@ -3,11 +3,13 @@
   <%= @list.name %>
 </p>
 
-<p>
-  <b>Color:</b>
-  <%= @list.color %>
-</p>
 
+<% @movies.each_with_index do |movie, index| -%>
+<p>
+  <%= index + 1 %>: <%= movie.title %>&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>
+<% end -%>
 
 <%= link_to 'Edit', edit_list_path(@list) %> |
 <%= link_to 'Back', lists_path %>

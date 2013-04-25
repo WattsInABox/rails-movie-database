@@ -18,7 +18,7 @@ class ListsController < ApplicationController
   # GET /lists/1.json
   def show
     @list = List.find(params[:id])
-
+    @movies = @list.movies.sort { |a, b| a.title <=> b.title }
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @list }
