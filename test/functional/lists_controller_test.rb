@@ -19,7 +19,8 @@ class ListsControllerTest < ActionController::TestCase
   should "get index in JSON format and return lists matching a query parameter" do
     @list2 = FactoryGirl.create(:list, name: 'yours')
 
-    get :index, format: 'json', term: 'mI' # use capital "I" to test if we're properly doing a case-insensitive search
+    # use capital "I" to test if we're properly doing a case-insensitive search
+    get :index, format: 'json', term: 'mI' 
 
     lists = assigns(:lists)
     assert_not_nil lists
