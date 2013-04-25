@@ -52,7 +52,9 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.initialize_from_imdb(current_object_params[:imdb_id])
-    @movie.lists = current_object_params[:lists].split(',').collect { |list_id| List.find(list_id.strip) }
+    @movie.lists = current_object_params[:lists].strip.split(',').collect do |list_id| 
+      List.find(list_id.strip)
+    end
 
     respond_to do |format|
       if @movie.save

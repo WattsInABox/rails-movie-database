@@ -46,7 +46,11 @@ class MoviesControllerTest < ActionController::TestCase
     list2 = FactoryGirl.create(:list)
 
     assert_difference('Movie.count') do
-      movie = FactoryGirl.attributes_for(:movie, lists: "#{list.id}, #{list2.id},")
+      # it's important that the list IDs be seperated by a 
+      # comma and then a space (including the space at the end) 
+      # because that it is how the JQuery interface component will send the 
+      # list IDs
+      movie = FactoryGirl.attributes_for(:movie, lists: "#{list.id}, #{list2.id}, ")
       post :create, movie: movie
     end
 
