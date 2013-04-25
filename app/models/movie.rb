@@ -11,6 +11,7 @@ class Movie < ActiveRecord::Base
   has_many :lists, through: :movie_lists
   
   validates_uniqueness_of :imdb_id
+  validates :lists, length: { minimum: 1 }
 
   def self.search(param)
     ::Imdb::Search.new(param).movies.first(10)

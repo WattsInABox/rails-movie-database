@@ -12,16 +12,19 @@ class MovieTest < ActiveSupport::TestCase
   end
 
   context "initializing from Imdb" do
-    should "init movie with genres and lists" do
+    should "init movie with genres" do
       movie = Movie.initialize_from_imdb(1)
       
-      assert_equal true, movie.save
-      assert_equal 1, Movie.count
-
-      assert_equal 1, movie.reload.imdb_id
+      assert_equal 1, movie.imdb_id
       assert_equal 'Carmencita', movie.title
       assert_equal 'http://akas.imdb.com/title/tt1/combined', movie.link
       assert_same_elements %w(Documentary Short), movie.genres.collect { |g| g.name }
+    end
+  end
+
+  should "not save without list" do
+    assert_raises ActiveRecord::RecordInvalid do
+      FactoryGirl.create(:movie)
     end
   end
   

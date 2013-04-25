@@ -3,6 +3,11 @@ require_relative '../test_helper'
 class ListsControllerTest < ActionController::TestCase
   setup do
     @list = FactoryGirl.create(:list, name: 'mine')
+    # have to save the movies seperately since they require at least list
+    # also, save b first then a so that our sort test is valid
+    %w(b a).each do |movie_title|
+      FactoryGirl.build(:movie, title: movie_title, lists: [@list])  
+    end
   end
 
   should "get index" do

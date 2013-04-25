@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class MoviesControllerTest < ActionController::TestCase
   context "with existing movies" do
     setup do
-      @movie = FactoryGirl.create(:movie)
+      @movie = FactoryGirl.create(:movie, lists: [FactoryGirl.create(:list)])
     end
 
     should "show movie" do
