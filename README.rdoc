@@ -10,7 +10,7 @@ We have now switched to using the API from http://imdbapi.org/ and the REST clie
 Contributing is easy. 
 
 1. Fork
-2. Edit
-3. Request a pull
+2. Edit (and TEST and DOCUMENT!!!)
+3. Submit a pull request
 
 Bonus points for feature branch names and "proper" commit messages.
