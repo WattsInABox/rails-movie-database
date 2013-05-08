@@ -4,6 +4,11 @@
 
 We have now switched to using the API from http://imdbapi.org/ and the REST client gem http://rubydoc.info/gems/rest-client/1.6.7/frames.
 
+TODO Package IMDB API stuff into its own gem
+TODO When a movie is destroyed, allow removing it just from a list and not removing it from all lists
+TODO Either make colors do something or get rid of the color column for lists
+TODO add authentication 
+TODO assign lists/movies to users/groups
 
 == Contributing
 
