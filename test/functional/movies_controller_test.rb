@@ -3,7 +3,14 @@ require_relative '../test_helper'
 class MoviesControllerTest < ActionController::TestCase
   context "with existing movies" do
     setup do
-      @movie = FactoryGirl.create(:movie, lists: [FactoryGirl.create(:list)])
+      @movie = FactoryGirl.create(:movie, lists: [FactoryGirl.create(:list)], title: 'a')
+    end
+
+    should "get index" do
+      @movie2 = FactoryGirl.create(:movie, lists: [FactoryGirl.create(:list)], title: '2a')
+      get :index
+      assert_response :success
+      assert_equal [@movie2, @movie], assigns(:movies), "Movies should be in alphabetical order"
     end
 
     should "show movie" do
@@ -28,12 +35,6 @@ class MoviesControllerTest < ActionController::TestCase
 
       assert_redirected_to @movie.lists.first
     end
-  end
-
-  should "get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:movies)
   end
 
   should "get new" do
