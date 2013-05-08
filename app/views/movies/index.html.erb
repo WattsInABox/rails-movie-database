@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+    <th>Title</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +11,8 @@
 
 <% @movies.each do |movie| %>
   <tr>
+    <td><%= movie.title %></td>
+    <td><%= link_to 'More Info', movie.link, target: '_blank' %></td>
     <td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,3 +23,4 @@
 <br />
 
 <%= link_to 'New Movie', new_movie_path %>
+<%= link_to 'Show All Lists', lists_path %>
