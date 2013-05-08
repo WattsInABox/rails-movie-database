@@ -60,12 +60,11 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   should "search" do
-    title = 'Top Gear Season 1'
-    tagline = 'Amazing Show with Fun and Cars and Stuff'
+    imdb_id = 123
+    label = 'Top Gear Season 1: An amazing thing about stuff'
     movie = mock('movie') do
-      stubs('id').returns(123)
-      stubs('title').returns(title)
-      stubs('tagline').returns(tagline)
+      expects('imdb_id').returns(imdb_id).at_least_once
+      expects('label').returns(label).at_least_once
     end
 
     Movie.expects(:search).with('Top Gear').returns([movie])
@@ -73,12 +72,13 @@ class MoviesControllerTest < ActionController::TestCase
 
     movies = assigns(:movies)
     assert_not_nil movies
+    assert_equal 1, movies.length
     assert_response :success
 
     # use the value-label format for jquery autocomplete
     # from the docs:
     # An array of objects with label and value properties: [ { label: "Choice1", value: "value1" }, ... ]
-    assert_equal "#{title}: #{tagline}", movies.first[:label], "Label should be the movie's title and tagline"
-    assert_equal 123, movies.first[:value], "Value should be the movie's IMDB ID"
+    assert_equal label, movies.first[:label], "Label for the dropdown should be the movie's title and tagline"
+    assert_equal imdb_id, movies.first[:value], "Value in the dropdown should be the movie's IMDB ID"
   end
 end

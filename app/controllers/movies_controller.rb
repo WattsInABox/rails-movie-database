@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   # search for movies from IMDB, not our database
   def search
     @movies = Movie.search(params[:term]).collect do |movie|
-      { label: "#{movie.title}: #{movie.tagline}", value: movie.id }
+      { label: movie.label, value: movie.imdb_id }
     end.compact
 
     respond_to do |format|  
@@ -51,7 +51,7 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.initialize_from_imdb(current_object_params[:imdb_id])
+    @movie = Movie.initialize_from_imdb(imdb_id: current_object_params[:imdb_id])
     @movie.lists = current_object_params[:lists].strip.split(',').collect do |list_id| 
       List.find(list_id.strip)
     end

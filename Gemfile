@@ -7,7 +7,8 @@ gem 'bson_ext'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'imdb'
+
+gem 'rest-client'
 
 gem 'awesome_print'
 

@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :imdbd_id, "Imdb ID (Autocomplete)" %><br />
+    <%= f.label :imdbd_id, "Movie (Autocomplete)" %><br />
     <%= f.text_field :imdb_id %>
   </div>
   <div class="field">
-    <%= f.label :lists, "Lists" %><br />
-    <%= f.text_field :lists %>
+    <%= f.label :lists, "Lists (Autocomplete)" %><br />
+    <%= f.text_field :lists, value: nil %>
   </div>
   <div class="actions">
     <%= f.submit "Add Movie to Library" %>

@@ -2,7 +2,8 @@
 
 == WORK IN PROGRESS
 
-The goal of this application is to make it easy to catalog your movies. It uses the imdb rubygem to look up movie information. However, after much research, both the imdb and ruby-imdb gems use scraping which is slow and awful. We should switch to using http://imdbapi.org/ and the REST client gem http://rubydoc.info/gems/rest-client/1.6.7/frames.
+We have now switched to using the API from http://imdbapi.org/ and the REST client gem http://rubydoc.info/gems/rest-client/1.6.7/frames.
+
 
 == Contributing
 

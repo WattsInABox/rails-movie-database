@@ -49,10 +49,7 @@ GEM
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     hike (1.2.1)
-    hpricot (0.8.6)
     i18n (0.6.4)
-    imdb (0.7.0)
-      hpricot (~> 0.8.6)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -97,6 +94,8 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -132,12 +131,12 @@ DEPENDENCIES
   bson_ext
   coffee-rails (~> 3.2.1)
   factory_girl
-  imdb
   jquery-rails
   jquery-ui-rails
   mocha
   pg
   rails (= 3.2.11)
+  rest-client
   sass-rails (~> 3.2.3)
   shoulda
   uglifier (>= 1.0.3)
